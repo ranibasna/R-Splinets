@@ -32,3 +32,4 @@ Suggests:
     rmarkdown,
     DDK
 VignetteBuilder: knitr
+URL: https://ranibasna.github.io/R-Splinets/

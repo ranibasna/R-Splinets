@@ -21,6 +21,8 @@ library(Splinets)
 
 # Data Preprocessing
 
+This step involves transforming the two-dimensional images into a one-dimensional format for analysis. The example in the source uses the Hilbert curve transformation, which preserves local correlations between image pixels better than simply stacking the image's columns or rows
+
 ```{r DataPreprocessing}
 #####################################
 #The code accompanying the R-journal paper on Splinets package
@@ -50,6 +52,8 @@ load(file = "OneD.RData")
 ```
 
 
+Once the data are properly formatted, we divided into three parts. The first and largest part constitutes the training data, and the remaining are split into two, the validation and testing. 
+
 ```{r DataSplitting}
 #Spliting the training data into classes
 K=10
@@ -64,12 +68,11 @@ for(k in 1:K){
 
 illustrating the two formats of the data against the original images
 original images
+
 ```{r}
+par(mfrow = c(1, 2))
+
 image(t(fashion_mnist$test$x[1,28:1,]),xaxt="n",yaxt="n")
-```
-
-
-```{r}
 image(t(fashion_mnist$test$x[20,28:1,]),xaxt="n",yaxt="n")
 ```
 
@@ -77,26 +80,20 @@ image(t(fashion_mnist$test$x[20,28:1,]),xaxt="n",yaxt="n")
 # images transformed by vectorization
 ```{r}
 ###
+par(mfrow = c(1, 2))
+
 plot(OneD$coltrain[,60001],OneD$coltrain[,1],type='l',xlab='',ylab='')
-```
-
-
-```{r}
 plot(OneD$coltrain[,60001],OneD$coltrain[,20],type='l',xlab='',ylab='')
 ```
 
- images transformed by the Hilbert curve
+images transformed by the Hilbert curve
+ 
 ```{r}
 ###
+par(mfrow = c(1, 2))
 
 plot(OneD$Hilberttrain[,60001],OneD$Hilberttrain[,1],type='l',xlab='',ylab='')
-```
-
-
-```{r}
-#pdf('Fig5RightTop.pdf',width=7,height=7)
 plot(OneD$Hilberttrain[,60001],OneD$Hilberttrain[,20],type='l',xlab='',ylab='')
-#dev.off()
 ```
 
 ## Estimating mean values of discrete data.
@@ -111,7 +108,11 @@ for(k in 1:K)
 
 # Knot selection for the mean and the centered data
 
+The Data-Driven Knots (DDK) selection algorithm is applied to the training data to select class-specific knots. This algorithm identifies areas of high curvature within each class and places knots accordingly, minimizing the mean square error. This process is crucial for efficient analysis and directly impacts the accuracy of the classification.
+
 ```{r StopCurve, message=FALSE}
+# Step 2 Knot selection
+
 # The main work in this step is done by the 'DDK' package.
 # The critical function from this package is 'add_knots()'.
 
@@ -158,18 +159,18 @@ for(k in 1:K){
 load('CDKnts.rda') #load the knots for the centered data 
 ```
 
-# Projecting the data to the spline spaces
+# Projecting discrete training data to functional spaces of splines
+
+Projecting Training Data Into Spline Spaces: The discrete training data points are projected onto third-order data-driven splinet bases, which are constructed based on the class-specific knots determined in the previous step.
+
+
 
 ```{r Projection}
 #####################################
 #STEP 3 - DATA PROJECTION TO SPLINE SPACES
 ##############
 
-#Projecting discrete training data to functional spaces of splines
-#Requires 'Splinets'-package
-
-#Projecting means to the spline space
-
+# Projecting means to the spline space
 # MeanSplines=list()
 # for(k in 1:K){
 #   MeanSplines[[k]]=project(cbind(ArgH,MeanTr[,k]),MnKnts$knts[[k]])
@@ -187,44 +188,47 @@ load('Projections.rda') #load the results
 
 # illustrates the knot selection process 
 
+
+Here we plot the selected knots for the mean functions and the centered data. 
+
+Discrete mean ‘T-Shirt’ (solid line) vs. the functional fit μˆ (dashed line) obtained by the optimal knots marked by vertical dotted lines.
+
+
+the mean `T-Shirt'
+
 ```{r MeanTshirt}
 ####################
 #FIGURES 
 ########
 
-#Top graph - the mean `T-Shirt'
+
 k=1
 prmean=MeanSplines[[k]]
 
-#pdf('Fig6Top.pdf',width=9,height=3)
 plot(prmean$sp,lty=2,lwd=3)
 lines(ArgH,MeanTr[,k],type='l',col='red') #T-shirt mean
 lines(prmean$sp,lty=2,lwd=3)
-#dev.off()
-
-##
 ```
+
+Fitting the centered ‘T-shirt’ by a spline with selected knots, 
 
 
 ```{r CenteredTshirt}
-#Middle graph - the centered `T-Shirt'
-
 prTSh=project(cbind(ArgH,CDTrain[[k]][,1]),CDKnts$knts[[k]])
 
-#pdf('Fig6Middle.pdf',width=9,height=3)
 plot(prTSh$sp,lty=2)
 lines(ArgH,CDTrain[[k]][,1],type='l',col='red') #T-shirt centered
 lines(prTSh$sp,lty=2,lwd=2)
-#dev.off()
-
-##
 ```
 
 
+- the stopping rule curve and the stopping time for the means
+
+Visualization of the stopping algorithm for the knots for the mean functions.
+
+
 ```{r StoppingRuleMean}
-#Left-Bottom graph - the stopping rule curve and the stopping time for the means
 NInit=10; KK=150
-#pdf('Fig6BottomLeft.pdf',width=5,height=3)
 plot((NInit+2):(NInit+KK+1),AvRelErr[(NInit+2):(NInit+KK+1)],type='l',lwd=2,col='red',xlab='Number of Selected Knots',ylab='Relative Error Drop')
 for(k in 1:K){
   nonzerr=MnKnts$err[[k]][(NInit+2):MnKnts$nknots[k]]
@@ -235,14 +239,12 @@ for(k in 1:K){
   RelErr[11:length(xx)]=xx[11:length(xx)]
   lines((NInit+2):(NInit+length(RelErr)+1),RelErr,type='l',col=k)
 }
-##
 ```
 
 
-```{r StoppingRuleCentered}
-#Bottom-Right graph - the stopping rule curve and the stopping time for the centered data
+Visualization of the stopping algorithm for the knot selection of the centered data.
 
-#pdf('Fig6BottomRight.pdf',width=5,height=3)
+```{r StoppingRuleCentered}
 plot((NInit+2):(NInit+KK+1),AvRelErr[(NInit+2):(NInit+KK+1)],type='l',lwd=2,col='red',xlab='Number of Selected Knots',ylab='Relative Error Drop')
 
 for(k in 1:K){
@@ -259,7 +261,11 @@ for(k in 1:K){
 #######
 ```
 
-# Principal component analysis
+# Functional Principal component analysis
+
+Functional Principal Components Analysis (FPCA) on Training Data: FPCA is performed within each class on the functional data points of the training set to understand the complexity of the data and prepare for classification.
+
+The spectral decomposition of the training data.
 
 ```{r PCA}
 ############################################
@@ -279,6 +285,7 @@ for(k in 1:K){
 ##########################################
 ```
 
+The first three eigenfunctions for the ‘T-shirt’ class scaled by the square roots of the respective eigenfunctions. 
 
 ```{r IllustrationEigenfunctions}
 #####################
@@ -289,16 +296,15 @@ k=1 #T-Shirt
 #Eigenfunctions using 'Splinets'-package
 EigHSplns=lincomb(HSplns[[k]]$basis,t(Spct[[k]]$vectors)) 
 
-#####
-#Top-Left plot --
-#The first three eigenfunctions for 'T-Shirts' scaled by squareroots of the eigenvalues:
 
-#pdf('Fig7TopLeft.pdf',width=7,height=4)
 ScEHSp=lincomb(subsample(EigHSplns,1:3),diag(c(sqrt(Spct[[k]]$values[1:3]))))
 plot(ScEHSp)
-#dev.off()
 #####
+```
 
+Two approximations of the centered functional ‘T-shirt’ data point (NavyBlue-Dashed Line): 1) by the first three eigenfunctions (Blue-DottedDashed Line) ; 2) by the first twenty eigenfunctions (Orange-ThinSolid Line). 
+
+```{r IllustrationEigenfunctions_2}
 ###
 #Top-Left Graph: projections of the centered data
 
@@ -323,13 +329,15 @@ CtAppNg=lincomb(EHSNeg,t(IP[2:(neg+1),2+neg]))  #'neg' eigenvalues
 
 CtAppThree=lincomb(subsample(EHSNeg,1:3),t(IP[2:4,2+neg])) #three eigenvalues
 
-#pdf('Fig7TopRight.pdf',width=7,height=4)
 plot(CHS1,sID=1,lty=2)
 lines(CtAppThree,lty='dotdash',col="blue")
 lines(CtAppNg,lwd=1,col='darkorange3')
-#dev.off() 
-##
+```
 
+
+The same approximation but centered around the ‘T-Shirt’ class mean μˆ1 (Red-ThickSolid Line).
+
+```{r IllustrationEigenfunctions_3}
 ###
 #Bottom-Left - projections of the functional 'T-Shirt' data point centered around the class mean
 
@@ -340,15 +348,18 @@ A1=subsample(A1,1:4) #Taking 3 eigenfunctions
 A=t(c(1,IP[2:4,2+neg]))
 ApprxThree=lincomb(A1,A)
 
-#pdf('Fig7BottomLeft.pdf',width=7,height=4)
+
 plot(HSplns[[k]]$sp,sID=1,lty=2)
 lines(MeanSplines[[k]]$sp,type='l',lwd=3,col='red') #Mean value spline
 lines(ApprxThree,lty='dotdash',col="blue")
 lines(ApprxNeg,lwd=1,col='darkorange3')
-#dev.off()
-##
 
 ###
+```
+
+Projection of a ’Boot’ data point to the ’T-Shirt’ spectrum with 20 eigenfunctions after centering around the ’T-Shirt’ class mean, the discrete‘Boot’ data point (Black-Rough Line) vs. the projection (Orange-Solid Line).
+
+```{r IllustrationEigenfunctions_4}
 #Bottom-Right - projections to the 'T-Shirt' of the functional 'Boot' data point centered around the 'T-Shirt' class mean 
 m=10 #The boot clase
 
@@ -372,6 +383,8 @@ lines(cbind(ArgH,Htrain[[m]][,1]),type='l')
 
 
 # Determining the significant number of the eigenfunctions
+
+This step uses the classification procedure on the validation data set to ascertain the optimal number of eigenfunctions for each class. This validation step is crucial for preventing overfitting and ensuring accurate classification.
 
 ```{r SignificantEigenfunctions}
 ###########################################
@@ -570,7 +583,9 @@ for(k in 1:K){
 
 
 
-# Testing the developed procedure
+# Testing the Classification Procedure
+
+The testing step involves classifying each data point in the testing set by projecting it onto the ten functional spaces and utilizing the classification rule. The results are then compared with the actual class memberships and summarized in the confusion matrix to assess the method’s efficiency.
 
 ```{r TestDataPreparation}
 #############################################
@@ -588,7 +603,7 @@ for(k in 1:K){
 #end of the testing data preparation
 ```
 
-# Classification of the testing data
+## Classification of the testing data
 
 ```{r ClassifyTest}
 #Running the test of the classification procedure on testing data, takes some time.
@@ -619,6 +634,9 @@ round(Dist,3)
 ```
 
 # Final evaluation and conclusions
+
+Final Evaluation and Conclusions: This stage is case-specific and depends on the goal of the analysis. It involves analyzing the classification results, examining misclassified data points, and identifying potential areas for improvement.
+
 
 ```{r Evaluation}
 #############################################

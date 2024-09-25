@@ -1,4 +1,11 @@
-url: https://ranibasna.github.io/R-Splinets/
+# url: https://ranibasna.github.io/R-Splinets/
+
+url:
+  # Add your GitHub URL
+  - text: GitHub
+    href: https://ranibasna.github.io/R-Splinets/  # Replace with your GitHub repository URL
+    icon: fab fa-github  # This adds the GitHub icon from FontAwesome
+
 template:
   bootstrap: 5
 

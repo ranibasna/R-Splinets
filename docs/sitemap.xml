@@ -1,34 +1,34 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://ranibasna.github.io/R-Splinets/404.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/articles/ImageClassification.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/articles/MassSpectrometry.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/articles/index.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/authors.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/index.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/Splinets-class.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/construct.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/deriva.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/dintegra.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/evspline.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/exsupp.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/gather.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/gramian.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/index.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/integra.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/is.splinets-methods.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/is.splinets.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/lincomb.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/lines-Splinets-method.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/plot-Splinets-method.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/project.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/refine.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/rspline.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/seq2dyad.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/splinet.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/subsample.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/sym2one.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/tire.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/truck.html</loc></url>
-<url><loc>https://ranibasna.github.io/R-Splinets/reference/wind.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/404.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/articles/ImageClassification.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/articles/MassSpectrometry.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/articles/index.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/authors.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/index.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/Splinets-class.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/construct.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/deriva.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/dintegra.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/evspline.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/exsupp.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/gather.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/gramian.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/index.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/integra.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/is.splinets-methods.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/is.splinets.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/lincomb.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/lines-Splinets-method.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/plot-Splinets-method.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/project.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/refine.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/rspline.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/seq2dyad.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/splinet.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/subsample.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/sym2one.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/tire.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/truck.html</loc></url>
+<url><loc>list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/", icon = "fab fa-github")/reference/wind.html</loc></url>
 </urlset>
 

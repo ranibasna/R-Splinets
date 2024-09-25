@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   ImageClassification: ImageClassification.html
   MassSpectrometry: MassSpectrometry.html
-last_built: 2024-09-23T08:21Z
+last_built: 2024-09-25T12:01Z
 urls:
   reference: list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/",
     icon = "fab fa-github")/reference

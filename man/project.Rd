@@ -54,7 +54,7 @@ The value of the function is a list made of four elements
   otherwise it is the input numeric matrix after ordering according to the first column, 
   \item \code{project$coeff} -- \code{N x (n-k+1)} matrix of the coefficients of representation of the projection of the input in the splinet basis,
   \item \code{project$basis} -- the spline basis,
-  \item \code{projedt$sp} -- the \code{Splinets}-object containing the projected splines.
+  \item \code{project$sp} -- the \code{Splinets}-object containing the projected splines.
  }
 }
 \description{

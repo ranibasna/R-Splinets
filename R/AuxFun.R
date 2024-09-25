@@ -1560,8 +1560,8 @@ plot.basis = function(object){
            'darkolivegreen4', 'deepskyblue', 'red4', 'slateblue')
   n_so = length(object@der)
   y = evspline(object)
-  plot(y[,1], y[,2], type = "l", main = paste(numToWord(object@smorder), "order B-spline basis"),
-       xlab = "", ylab = "", lwd = 2, col = ourcol[1], ylim = range(y), bty="n")
+  plot(y[,1], y[,2], type = "l", 
+       xlab = "", ylab = "", lwd = 2, col = ourcol[1], ylim = range(y[,2:dim(y)[2]]), bty="n")
   if(n_so > 1){
     for(i in 3:(n_so+1)){
       points(y[,1], y[,i], type = "l", lwd = 2, col = ourcol[i%%8+1])
@@ -1577,8 +1577,8 @@ plot.obasis = function(object){
            'darkolivegreen4', 'deepskyblue', 'red4', 'slateblue')
   n_so = length(object@der)
   y = evspline(object)
-  plot(y[,1], y[,2], type = "l", main = paste(numToWord(object@smorder), "order", typeWords(object@type)),
-       xlab = "", ylab = "", lwd = 2, col = ourcol[1], ylim = range(y), bty="n")
+  plot(y[,1], y[,2], type = "l",
+       xlab = "", ylab = "", lwd = 2, col = ourcol[1], ylim = range(y[,2:dim(y)[2]]), bty="n")
   for(i in 2:n_so){
     points(y[,1], y[, i+1], type = "l", lwd = 2, col = ourcol[i%%8+1])
   }
@@ -1606,9 +1606,8 @@ plot.splinet = function(object,lwd=2,mrgn=2){
   for(i in 1:n_level){
     seqID = net_str[which(net_str[,2] == i), 1]
     
-      plot(y[, 1], y[, seqID[1]+1], type = "l", ylab = "", bty = "n",
-           ylim = range(y[, seqID+1]), xlab = "", col = ourcol[seqID[1]%%8+1], lwd = lwd,
-           main = paste(numToWord(k), "order splinet basis" )) 
+    plot(y[, 1], y[, seqID[1]+1], type = "l", ylab = "", bty = "n",
+         ylim = range(y[, seqID+1]), xlab = "", col = ourcol[seqID[1]%%8+1], lwd = lwd) 
     
     for(j in seqID[-1]){
       points(y[, 1], y[, j+1], type = "l", col = ourcol[j%%8+1], lwd = lwd) 
@@ -1617,7 +1616,7 @@ plot.splinet = function(object,lwd=2,mrgn=2){
     abline(v = xi, lty = 3, lwd = 0.5)
   }
   # par(mfrow = c(1,1))
-
+  
   layout(matrix(1:1, 1, 1))
 }
 

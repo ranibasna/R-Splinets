@@ -1,0 +1,74 @@
+---
+title: "Introduction to Splinets"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to Splinets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Splinets)
+```
+
+This is a reproducible example of the introduction section of the paper Splinets - Orthogonal Splines for Functional Data Analysis}
+
+
+# Introduction to Splinets
+
+Examples of splines for non-equally spaced knots (first two figures) and equally spaced knots (right). Both individual splines and random spline samples generated around with a use of the implemented random spline generator. Vertical dashed lines in all figures are placed at the locations of the knots.
+
+```{r, fig.width=8, fig.height=4}
+n=20; k=3 #Number of knots and the order of splines
+set.seed(10)
+xi=sort(rbeta(n+2,2,5)); xi[1]=0; xi[n+1]=1 #Randomly distributed knots
+
+S=matrix(rnorm((n+2)*(k+1)),ncol=(k+1)) #Random matrix of derivatives
+spl=construct(xi,k,S) #A spline object with corrected matrix of the derivatives
+plot(spl)
+```
+
+
+```{r, fig.width=8, fig.height=4}
+y=rspline(spl,10) #Random spline generator
+plot(y)
+```
+
+
+```{r, fig.width=8, fig.height=4}
+xi2=seq(0,1,by=1/(n+1))
+spl2=construct(xi2,k,S) #Another spline object
+plot(spl2)
+```
+
+
+```{r, fig.width=8, fig.height=4}
+y2=rspline(spl2,10) #Another random sample
+plot(y2)
+```
+
+The result is shown in above demonstrate that the knot distribution is fundamental in shaping geometry of functional spaces. The difference in the nature of the two linear functional spaces observed  is obvious, as in the first twographs we see more capacity to focus on the localized variability and detail, the capacity that is lacked in splines in the right-hand side graphs. 
+
+
+# Orthonormal bases of splines
+
+```{r fig.width=8, fig.height=4}
+k=3; N=5 #Order of splines and the number of layers
+n=k*2^N-1 #Number of knots
+set.seed(2)
+xi=cumsum(runif(n+2,min=0.2)) #Random knots
+so = splinet(xi, k) #Evaluation of the B-splines and the splinet
+
+plot(so$bs,type='dyadic') #B-splines on the dyadic net
+plot(so$os) #Splinet on the dyadic net
+```
+
+Cubic spline bases presented graphically in the sequential form (top) and on the dyadic net (bottom). The case of $n=k2^N-1=95$, $k=3$, $N=5$ which is the number of layers in the dyadic structure seen in the figures. The first is the B-spline basis; After is the corresponding splinet.
+

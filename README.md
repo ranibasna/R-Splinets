@@ -10,12 +10,18 @@ The goal of Splinets is to …
 
 ## Installation
 
+You can install {Splinets} with the following code.
+
+``` r
+install.packages("Splinets")
+```
+
 You can install the development version of Splinets from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("ranibasna/R-Splinets")
+# install.packages("devtools")
+devtools::install_github("ranibasna/R-Splinets")
 ```
 
 ## Example

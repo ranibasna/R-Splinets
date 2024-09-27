@@ -1,0 +1,93 @@
+---
+title: "Functional Principal Value Decomposition"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Functional Principal Value Decomposition}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Splinets)
+```
+
+
+This is a reproducible Wine data example use in the paper Splinets - Orthogonal Splines for Functional Data Analysis}
+
+# Wine data set
+
+```{r}
+# source the set of the needed auxiliary functions
+source("WineDataExampleAuxFunc.R")
+```
+
+```{r WineData}
+library(DDK)
+# get the data from the DKK pacakge
+data("Wine")
+f_data_wine <- Wine$x.learning
+t_df_wine <- seq(1, dim(f_data_wine)[2])
+# test data
+f_data_wine_test <- Wine$x.test
+t_df_wine_test <- seq(1, dim(f_data_wine_test)[2])
+# remove raw 84 since it is an outlier
+f_data_wine <- f_data_wine[-84,]
+```
+
+```{r KnotsPrepare}
+# the knots are: 0  21  28  40  83 139 167 186 193 256
+knots <- c(0, 21, 28, 40, 83, 139, 167, 186, 193, 256)
+# prepare the knots
+Wine_DDKnots <- Knots_prepare(selected_knots = knots, Time = t_df_wine)
+n = length(Wine_DDKnots) - 1
+```
+
+
+```{r DataPrepare}
+# prepare the data
+Wine_prepared <- data_prepare(f_data = f_data_wine, t_data = t_df_wine)
+```
+
+
+```{r Projections}
+# project the data and perfrom the eigen decomposition
+# wine_proj = project(Wine_prepared, Wine_DDKnots) # Project wine data onto spline bases
+# Sigma = cov(wine_proj$coeff)  # Covariance matrix of the projection coefficients
+# Spect = eigen(Sigma, symmetric = T)  # eigen decomposition of the covariance matrix
+# EigenSp = lincomb(wine_proj$basis, t(Spect$vec))  
+# Create a functional eigenfunctions by linearly combining the splinets basis functions (from ProjObj$basis) with the eigenvectors (Spect$vec).
+
+WineObj <- GetProjCovEig(f_ready_data = Wine_prepared, ready_knots = Wine_DDKnots)
+```
+
+```{r fig.width=8, fig.height=4}
+plot_EigenfunctionEigenValueScaled(ProjCovEigObj = WineObj, EigenNumber = 3)    
+```
+
+```{r fig.width=8, fig.height=4}
+C_mat_Wine=WineObj$ProjObj$coeff %*% WineObj$Spect$vec
+EgenFunWine1 <- subsample(WineObj$EigenSp, 1)
+{matplot(Wine_prepared[,1],Wine_prepared[,2],type='l',lty=1,xlab='',ylab='', bty="n", 
+         col="deepskyblue4", xlim = c(-1.5,dim(f_data_wine)[2]))
+             lines(WineObj$ProjObj$sp,sID=2-1,col='goldenrod',lty=1,lwd=1)
+             lines(lincomb(EgenFunWine1,C_mat_Wine[1,1,drop=F]),col='darkorange3')
+             abline(v = WineObj$EigenSp@knots, lty = 3, lwd = 0.5)}
+```
+
+
+<!-- ```{r} -->
+<!-- C_mat_Wine=wine_proj$coeff %*% Spect$vec -->
+<!-- EgenFunWine1 <- subsample(EigenSp, 1) -->
+<!-- {matplot(Wine_prepared[,1],Wine_prepared[,2],type='l',lty=1,xlab='',ylab='', bty="n",  -->
+<!--          col="deepskyblue4", xlim = c(-1.5,dim(f_data_wine)[2])) -->
+<!--              lines(wine_proj$sp,sID=2-1,col='goldenrod',lty=1,lwd=1) -->
+<!--              lines(lincomb(EgenFunWine1,C_mat_Wine[1,1,drop=F]),col='darkorange3') -->
+<!--              abline(v = EigenSp@knots, lty = 3, lwd = 0.5)} -->
+<!-- ``` -->

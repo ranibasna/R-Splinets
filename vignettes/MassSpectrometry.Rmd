@@ -19,7 +19,128 @@ library(Splinets)
 ```
 
 
-# INTRODUCTION
+# Introduction to Splinets
+
+Examples of splines for non-equally spaced knots (first two figures) and equally spaced knots (right). Both individual splines and random spline samples generated around with a use of the implemented random spline generator. Vertical dashed lines in all figures are placed at the locations of the knots.
+
+```{r, fig.width=8, fig.height=4}
+n=20; k=3 #Number of knots and the order of splines
+set.seed(10)
+xi=sort(rbeta(n+2,2,5)); xi[1]=0; xi[n+1]=1 #Randomly distributed knots
+
+S=matrix(rnorm((n+2)*(k+1)),ncol=(k+1)) #Random matrix of derivatives
+spl=construct(xi,k,S) #A spline object with corrected matrix of the derivatives
+plot(spl)
+```
+
+
+```{r, fig.width=8, fig.height=4}
+y=rspline(spl,10) #Random spline generator
+plot(y)
+```
+
+
+```{r, fig.width=8, fig.height=4}
+xi2=seq(0,1,by=1/(n+1))
+spl2=construct(xi2,k,S) #Another spline object
+plot(spl2)
+```
+
+
+```{r, fig.width=8, fig.height=4}
+y2=rspline(spl2,10) #Another random sample
+plot(y2)
+```
+
+The result is shown in above demonstrate that the knot distribution is fundamental in shaping geometry of functional spaces. The difference in the nature of the two linear functional spaces observed  is obvious, as in the first twographs we see more capacity to focus on the localized variability and detail, the capacity that is lacked in splines in the right-hand side graphs. 
+
+
+# Orthonormal bases of splines
+
+```{r fig.width=8, fig.height=4}
+k=3; N=5 #Order of splines and the number of layers
+n=k*2^N-1 #Number of knots
+set.seed(2)
+xi=cumsum(runif(n+2,min=0.2)) #Random knots
+so = splinet(xi, k) #Evaluation of the B-splines and the splinet
+
+plot(so$bs,type='dyadic') #B-splines on the dyadic net
+plot(so$os) #Splinet on the dyadic net
+```
+
+Cubic spline bases presented graphically in the sequential form (top) and on the dyadic net (bottom). The case of $n=k2^N-1=95$, $k=3$, $N=5$ which is the number of layers in the dyadic structure seen in the figures. The first is the B-spline basis; After is the corresponding splinet.
+
+# Wine data set
+
+```{r}
+source("WineDataExampleAuxFunc.R")
+```
+
+```{r WineData}
+library(DDK)
+# get the data from the DKK pacakge
+data("Wine")
+f_data_wine <- Wine$x.learning
+t_df_wine <- seq(1, dim(f_data_wine)[2])
+# test data
+f_data_wine_test <- Wine$x.test
+t_df_wine_test <- seq(1, dim(f_data_wine_test)[2])
+# remove raw 84 since it is an outlier
+f_data_wine <- f_data_wine[-84,]
+```
+
+```{r KnotsPrepare}
+# the knots are: 0  21  28  40  83 139 167 186 193 256
+knots <- c(0, 21, 28, 40, 83, 139, 167, 186, 193, 256)
+# prepare the knots
+Wine_DDKnots <- Knots_prepare(selected_knots = knots, Time = t_df_wine)
+n = length(Wine_DDKnots) - 1
+```
+
+
+```{r DataPrepare}
+# prepare the data
+Wine_prepared <- data_prepare(f_data = f_data_wine, t_data = t_df_wine)
+```
+
+
+```{r Projections}
+# project the data and perfrom the eigen decomposition
+# wine_proj = project(Wine_prepared, Wine_DDKnots) # Project wine data onto spline bases
+# Sigma = cov(wine_proj$coeff)  # Covariance matrix of the projection coefficients
+# Spect = eigen(Sigma, symmetric = T)  # eigen decomposition of the covariance matrix
+# EigenSp = lincomb(wine_proj$basis, t(Spect$vec))  
+# Create a functional eigenfunctions by linearly combining the splinets basis functions (from ProjObj$basis) with the eigenvectors (Spect$vec).
+
+WineObj <- GetProjCovEig(f_ready_data = Wine_prepared, ready_knots = Wine_DDKnots)
+```
+
+```{r fig.width=8, fig.height=4}
+plot_EigenfunctionEigenValueScaled(ProjCovEigObj = WineObj, EigenNumber = 3)    
+```
+```{r fig.width=8, fig.height=4}
+C_mat_Wine=WineObj$ProjObj$coeff %*% WineObj$Spect$vec
+EgenFunWine1 <- subsample(WineObj$EigenSp, 1)
+{matplot(Wine_prepared[,1],Wine_prepared[,2],type='l',lty=1,xlab='',ylab='', bty="n", 
+         col="deepskyblue4", xlim = c(-1.5,dim(f_data_wine)[2]))
+             lines(WineObj$ProjObj$sp,sID=2-1,col='goldenrod',lty=1,lwd=1)
+             lines(lincomb(EgenFunWine1,C_mat_Wine[1,1,drop=F]),col='darkorange3')
+             abline(v = WineObj$EigenSp@knots, lty = 3, lwd = 0.5)}
+```
+
+
+<!-- ```{r} -->
+<!-- C_mat_Wine=wine_proj$coeff %*% Spect$vec -->
+<!-- EgenFunWine1 <- subsample(EigenSp, 1) -->
+<!-- {matplot(Wine_prepared[,1],Wine_prepared[,2],type='l',lty=1,xlab='',ylab='', bty="n",  -->
+<!--          col="deepskyblue4", xlim = c(-1.5,dim(f_data_wine)[2])) -->
+<!--              lines(wine_proj$sp,sID=2-1,col='goldenrod',lty=1,lwd=1) -->
+<!--              lines(lincomb(EgenFunWine1,C_mat_Wine[1,1,drop=F]),col='darkorange3') -->
+<!--              abline(v = EigenSp@knots, lty = 3, lwd = 0.5)} -->
+<!-- ``` -->
+
+
+# INTRODUCTION 
 An ovarian cancer tissue low-resolution SELDI-TOF mass spectrum (in orange) and its various representations as Splinet-objects in approximately 200 dimensional spline spaces: 
 
 

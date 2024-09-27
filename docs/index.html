@@ -51,8 +51,43 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Splines are efficiently represented through their Taylor expansion at the knots. The representation accounts for the support sets and is thus suitable for sparse functional data. Two cases of boundary conditions are considered: zero-boundary or periodic-boundary for all derivatives except the last. The periodical splines are represented graphically using polar coordinates. The B-splines and orthogonal bases of splines that reside on small total support are implemented. The orthogonal bases are referred to as 'splinets' and are utilized for functional data analysis. Random spline generator is implemented as well as all fundamental algebraic and calculus operations on splines. The optimal, in the least square sense, functional fit by 'splinets' to data consisting of sampled values of functions as well as splines build over another set of knots is obtained and used for functional data analysis. &lt;<a href="https://arxiv.org/abs/2102.00733" class="external-link">arXiv:2102.00733</a>&gt;, &lt;<a href="https://doi.org/10.1016/j.cam.2022.114444" class="external-link">doi:10.1016/j.cam.2022.114444</a>&gt;, &lt;<a href="https://arxiv.org/abs/2302.07552" class="external-link">arXiv:2302.07552</a>&gt;.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="splinets">Splinets<a class="anchor" aria-label="anchor" href="#splinets"></a>
+</h1></div>
+<!-- badges: start -->
+<!-- badges: end -->
+<p>The goal of Splinets is to …</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of Splinets from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"ranibasna/R-Splinets"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>This is a basic example which shows you how to solve a common problem:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">Splinets</span><span class="op">)</span></span>
+<span><span class="co">## basic example code</span></span></code></pre></div>
+<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      speed           dist       </span></span>
+<span><span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span></span>
+<span><span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span></span>
+<span><span class="co">#&gt;  Median :15.0   Median : 36.00  </span></span>
+<span><span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span></span>
+<span><span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></span></code></pre></div>
+<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code><a href="https://devtools.r-lib.org/reference/build_rmd.html" class="external-link">devtools::build_readme()</a></code> is handy for this.</p>
+<p>You can also embed plots, for example:</p>
+<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
+<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub and CRAN.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

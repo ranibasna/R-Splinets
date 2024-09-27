@@ -1,2 +1,5 @@
 *.html
 *.R
+
+!WineDataExampleAuxFunc.R
+!WorkFlowAuxFunction.R

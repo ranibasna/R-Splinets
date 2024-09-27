@@ -37,9 +37,9 @@ devtools::install_github("ranibasna/R-Splinets")
 
 
 
-<!-- # Reproducing Papers results -->
+# Reproducing Papers results
 
-<!-- For reproducing the results presented in the paper for the Wine data, see [this link](https://ranibasna.github.io/ddk/articles/DKK_and_Functional_analysis_on_wine_data.html) -->
+For reproducing the results presented in the paper for the Image classification example, see [this link](https://ranibasna.github.io/R-Splinets/articles/ImageClassification.html)
 
 
 

@@ -46,7 +46,8 @@ source("WorkFlowAuxFunction.R") #This source all important R-functions helping i
 
 # load(file = "../data/fashion_mnist.RData")
 load(file = "fashion_mnist.RData")
-# OneD=data_prep(dname='fashion_mnist')
+# if the fashion_mnist.RData is not available, the data can be uploaded using the following code
+# OneD=data_prep(dname='fashion_mnist', dwnld=FALSE,pathfile)
 # save(OneD,file="OneD.RData")
 load(file = "OneD.RData")
 ```

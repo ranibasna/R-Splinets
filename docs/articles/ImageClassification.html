@@ -33,7 +33,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/FunctionalPrincipalValueDecomposition.html">Functional Principal Value Decomposition</a></li>
+<li><a class="dropdown-item" href="../articles/FunctionalPrincipalValueDecomposition.html">Functional Principal Value Decomposition with the Wine data</a></li>
     <li><a class="dropdown-item" href="../articles/ImageClassification.html">Image Classification with Splinets</a></li>
     <li><a class="dropdown-item" href="../articles/IntroductiontoSplinets.html">Introduction to Splinets</a></li>
     <li><a class="dropdown-item" href="../articles/MassSpectrometry.html">Splinets Statistical Application: mass spectrometry</a></li>
@@ -98,7 +98,8 @@ image pixels better than simply stacking the image’s columns or rows</p>
 <span></span>
 <span><span class="co"># load(file = "../data/fashion_mnist.RData")</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"fashion_mnist.RData"</span><span class="op">)</span></span>
-<span><span class="co"># OneD=data_prep(dname='fashion_mnist')</span></span>
+<span><span class="co"># if the fashion_mnist.RData is not available, the data can be uploaded using the following code</span></span>
+<span><span class="co"># OneD=data_prep(dname='fashion_mnist', dwnld=FALSE,pathfile)</span></span>
 <span><span class="co"># save(OneD,file="OneD.RData")</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"OneD.RData"</span><span class="op">)</span></span></code></pre></div>
 <p>Once the data are properly formatted, we divided into three parts.

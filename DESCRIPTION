@@ -42,3 +42,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/ranibasna/R-Splinets, https://ranibasna.github.io/R-Splinets/
+BugReports: https://github.com/ranibasna/R-Splinets/issues

@@ -74,7 +74,11 @@
 <p>This step involves transforming the two-dimensional images into a
 one-dimensional format for analysis. The example in the source uses the
 Hilbert curve transformation, which preserves local correlations between
-image pixels better than simply stacking the image’s columns or rows</p>
+image pixels better than simply stacking the image’s columns or
+rows.</p>
+<p>if the fashion_mnist.RData is not available, the data can be uploaded
+using the following code OneD=data_prep(dname=‘fashion_mnist’,
+dwnld=TRUE,pathfile)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#####################################</span></span>
 <span><span class="co">#The code accompanying the R-journal paper on Splinets package</span></span>
@@ -96,10 +100,9 @@ image pixels better than simply stacking the image’s columns or rows</p>
 <span>                                                               <span class="co">#in 'WorkFlowAuxFunction.R' if the data</span></span>
 <span>                                                               <span class="co">#are not previously uploaded. </span></span>
 <span></span>
-<span><span class="co"># load(file = "../data/fashion_mnist.RData")</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"fashion_mnist.RData"</span><span class="op">)</span></span>
-<span><span class="co"># if the fashion_mnist.RData is not available, the data can be uploaded using the following code</span></span>
-<span><span class="co"># OneD=data_prep(dname='fashion_mnist', dwnld=FALSE,pathfile)</span></span>
+<span><span class="co"># OneD=data_prep(dname='fashion_mnist', dwnld=TRUE,pathfile)</span></span>
 <span><span class="co"># save(OneD,file="OneD.RData")</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"OneD.RData"</span><span class="op">)</span></span></code></pre></div>
 <p>Once the data are properly formatted, we divided into three parts.
@@ -528,7 +531,11 @@ accurate classification.</p>
 <span><span class="co">#&gt; [1] 0.795</span></span>
 <span><span class="co">#&gt; [1] 0.76</span></span>
 <span><span class="co">#&gt; [1] 0.8633333</span></span></code></pre></div>
-<!-- # Visualization of the optimization algorithm for the number of eigenfunctions -->
+</div>
+<div class="section level2">
+<h2 id="visualization-of-the-optimization-algorithm-for-the-number-of-eigenfunctions">Visualization of the optimization algorithm for the number of
+eigenfunctions<a class="anchor" aria-label="anchor" href="#visualization-of-the-optimization-algorithm-for-the-number-of-eigenfunctions"></a>
+</h2>
 <!-- ```{r} -->
 <!-- #################### -->
 <!-- #Visualization of the optimization algorithm for the number of eigenfunctions -->
@@ -541,9 +548,10 @@ accurate classification.</p>
 <!-- load('CV1.RData') -->
 <!-- LT=length(CV1$Tr) -->
 <!-- aaa=vector('numeric',LT) -->
+<!-- bbb=aaa -->
 <!-- for(i in 1:LT)aaa[i]=CV1$Lss[[i]] -->
-<!-- # for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
-<!-- # plot(bbb,aaa,type='l',xlab='The number of eigenfunctions',ylab='Accuracy',col='red',lwd=2,ylim=c(0.65,0.8)) -->
+<!-- for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
+<!-- plot(bbb,aaa,type='l',xlab='The number of eigenfunctions',ylab='Accuracy',col='red',lwd=2,ylim=c(0.65,0.8)) -->
 <!-- ``` -->
 <!-- ```{r MC} -->
 <!-- MC=10 #Monte Carlo sample for the ini -->
@@ -553,60 +561,152 @@ accurate classification.</p>
 <!-- nn0=min(ind[max(aaa)==aaa]) -->
 <!-- MxAccu[1]=CV1$Lss[[nn0]] -->
 <!-- MxAccuArg[,1]=CV1$Tr[[nn0]] -->
-<!-- # set.seed(1) -->
-<!-- # for(j in 1:MC){ -->
-<!-- #   newn=nn -->
-<!-- #   for(k in 1:K){ -->
-<!-- #     newn[k]=ceiling(runif(1)*MxAccuArg[k,j]) -->
-<!-- #   } -->
-<!-- #   CV1=Cross(nn=newn,NumbFail = 40) -->
-<!-- #   LT=length(CV1$Tr) -->
-<!-- #   aaa=vector('numeric',LT) -->
-<!-- #   bbb=aaa -->
-<!-- #   for(i in 1:LT)aaa[i]=CV1$Lss[[i]] -->
-<!-- #   for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
-<!-- #   plot(bbb,aaa,type='l',xlab='The number of eigenfunctions',ylab='Accuracy',col='red',lwd=2,ylim=c(0.65,0.8)) -->
-<!-- #   lines(bbb,aaa,type='l',col=j) -->
-<!-- #   ind=1:LT -->
-<!-- #   nn0=min(ind[max(aaa)==aaa]) -->
-<!-- #   MxAccu[j+1]=CV1$Lss[[nn0]] -->
-<!-- #   MxAccuArg[,j+1]=CV1$Tr[[nn0]] -->
-<!-- # } -->
+<!-- set.seed(1) -->
+<!-- for(j in 1:MC){ -->
+<!--   newn=nn -->
+<!--   for(k in 1:K){ -->
+<!--     newn[k]=ceiling(runif(1)*MxAccuArg[k,j]) -->
+<!--   } -->
+<!--   CV1=Cross(nn=newn,NumbFail = 40) -->
+<!--   LT=length(CV1$Tr) -->
+<!--   aaa=vector('numeric',LT) -->
+<!--   bbb=aaa -->
+<!--   for(i in 1:LT)aaa[i]=CV1$Lss[[i]] -->
+<!--   for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
+<!--   lines(bbb,aaa,type='l',col=j) -->
+<!--   ind=1:LT -->
+<!--   nn0=min(ind[max(aaa)==aaa]) -->
+<!--   MxAccu[j+1]=CV1$Lss[[nn0]] -->
+<!--   MxAccuArg[,j+1]=CV1$Tr[[nn0]] -->
+<!-- } -->
 <!-- # save(CV1,MxAccu,MxAccuArg,file='MxAccu.RData') -->
 <!-- # rm(CV1) -->
 <!-- load('MxAccu.RData') -->
 <!-- LT=length(CV1$Tr) -->
 <!-- ``` -->
 <!-- ```{r} -->
-<!-- #The optimal number of the eigenfunction and its classwise decomposition -->
-<!-- jjj=1:(MC+1) -->
-<!-- j0=min(jjj[MxAccu==max(MxAccu)]) -->
-<!-- MxAccu[j0] -->
-<!-- nn0=MxAccuArg[,j0] -->
-<!-- sum(nn0) -->
-<!-- #obtaining classwise trajectories -->
-<!-- # ClassTraj=matrix(0,nrow=K,ncol=LT) -->
-<!-- #  -->
-<!-- # for(k in 1:K){ -->
-<!-- #   DiscrData=cbind(ArgH,CrossValid[[k]]) -->
-<!-- #   for(i in 1:LT){ -->
-<!-- #     AB=Classify(DiscrData,Mean,Eg,CV1$Tr[[i]],SplData[[k]]) -->
-<!-- #     ClassTraj[k,i]=mean(AB$clss==k) -->
-<!-- #   } -->
-<!-- # } -->
-<!-- # save(ClassTraj,file='ClassTraj.RData') -->
-<!-- load('ClassTraj.RData') -->
-<!-- xxx=sum(CV1$Tr[[1]]):sum(CV1$Tr[[LT]]) #the trajectory range by the total number of eigenfunctions -->
-<!-- ####### -->
-<!-- # the objective function against classwise accuracy -->
-<!-- plot(xxx,aaa,ylim=c(0,1),type='l',axes='False',lwd=3, col='red',ylab='Accuracy',xlab='The total number of eigenfunctions') -->
-<!-- axis(1) -->
-<!-- axis(2) -->
-<!-- for(k in 1:K){ -->
-<!--   lines(xxx,ClassTraj[k,],type='l',col=k) -->
+<!-- xval=ArgH #used due to the name of the default in 'Cross()' -->
+<!-- # Load the initial data (first curve) -->
+<!-- load('CV1.RData') -->
+<!-- LT <- length(CV1$Tr) -->
+<!-- aaa <- vector('numeric', LT) -->
+<!-- bbb <- aaa -->
+<!-- for(i in 1:LT) aaa[i] = CV1$Lss[[i]] -->
+<!-- for(i in 1:LT) bbb[i] = sum(CV1$Tr[[i]]) -->
+<!-- MC=10 #Monte Carlo sample for the ini -->
+<!-- MxAccu=vector('numeric',MC+1) -->
+<!-- MxAccuArg=matrix(0,ncol=MC+1,nrow=K) -->
+<!-- ind=1:LT -->
+<!-- nn0=min(ind[max(aaa)==aaa]) -->
+<!-- MxAccu[1]=CV1$Lss[[nn0]] -->
+<!-- MxAccuArg[,1]=CV1$Tr[[nn0]] -->
+<!-- # Number of Monte Carlo simulations -->
+<!-- # MC <- 10  -->
+<!-- # Create lists to store the results of Cross() for each MC iteration -->
+<!-- CV1_list <- vector("list", MC + 1)  # +1 for the initial plot outside the loop -->
+<!-- aaa_list <- vector("list", MC + 1)  # To store accuracies -->
+<!-- bbb_list <- vector("list", MC + 1)  # To store eigenfunction sums -->
+<!-- # Store the initial curve data -->
+<!-- CV1_list[[1]] <- CV1 -->
+<!-- aaa_list[[1]] <- aaa -->
+<!-- bbb_list[[1]] <- bbb -->
+<!-- # Plot the first curve -->
+<!-- plot(bbb, aaa, type = 'l', xlab = 'The number of eigenfunctions',  -->
+<!--      ylab = 'Accuracy', col = 'red', lwd = 2, ylim = c(0.65, 0.8)) -->
+<!-- # Monte Carlo loop -->
+<!-- set.seed(1) -->
+<!-- for (j in 1:MC) { -->
+<!--   newn <- nn -->
+<!--   # Update newn and run Cross() for each k -->
+<!--   for (k in 1:K) { -->
+<!--     newn[k] <- ceiling(runif(1) * MxAccuArg[k, j]) -->
+<!--   } -->
+<!--   # Store the Cross() results for each iteration in the list -->
+<!--   CV1 <- Cross(nn=newn, NumbFail=40) -->
+<!--   CV1_list[[j+1]] <- CV1  # Save result in the list -->
+<!--   # Extract the accuracy and eigenfunction sums -->
+<!--   LT <- length(CV1$Tr) -->
+<!--   aaa <- vector('numeric', LT) -->
+<!--   bbb <- aaa -->
+<!--   for (i in 1:LT) aaa[i] = CV1$Lss[[i]] -->
+<!--   for (i in 1:LT) bbb[i] = sum(CV1$Tr[[i]]) -->
+<!--   # Store the computed results for each iteration -->
+<!--   aaa_list[[j+1]] <- aaa -->
+<!--   bbb_list[[j+1]] <- bbb -->
+<!--   # Plot each curve in the loop -->
+<!--   lines(bbb, aaa, type = 'l', col = j + 1) -->
+<!--   ind = 1:LT -->
+<!--   nn0 = min(ind[max(aaa) == aaa]) -->
+<!--   MxAccu[j+1] = CV1$Lss[[nn0]] -->
+<!--   MxAccuArg[,j+1] = CV1$Tr[[nn0]] -->
 <!-- } -->
-<!-- lines(xxx,aaa,lwd=3, col='red') -->
+<!-- # Save all objects after the loop -->
+<!-- save(CV1_list, aaa_list, bbb_list, MxAccu, MxAccuArg, file='MxAccu_all.RData') -->
+<!-- # Load data when needed -->
+<!-- # load('MxAccu_all.RData') -->
 <!-- ``` -->
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the saved data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">'MxAccu_all.RData'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Recreate the initial plot</span></span>
+<span><span class="va">bbb</span> <span class="op">&lt;-</span> <span class="va">bbb_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">aaa</span> <span class="op">&lt;-</span> <span class="va">aaa_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bbb</span>, <span class="va">aaa</span>, type <span class="op">=</span> <span class="st">'l'</span>, xlab <span class="op">=</span> <span class="st">'The number of eigenfunctions'</span>, </span>
+<span>     ylab <span class="op">=</span> <span class="st">'Accuracy'</span>, col <span class="op">=</span> <span class="st">'red'</span>, lwd <span class="op">=</span> <span class="fl">2</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.65</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The number of Monte Carlo iterations</span></span>
+<span><span class="va">MC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CV1_list</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span><span class="co"># Add the remaining curves (from Monte Carlo iterations)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">MC</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">bbb</span> <span class="op">&lt;-</span> <span class="va">bbb_list</span><span class="op">[[</span><span class="va">j</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">aaa</span> <span class="op">&lt;-</span> <span class="va">aaa_list</span><span class="op">[[</span><span class="va">j</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>  </span>
+<span>  <span class="co"># Plot each saved curve</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">bbb</span>, <span class="va">aaa</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="va">j</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="ImageClassification_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">aaa</span> <span class="op">&lt;-</span> <span class="va">aaa_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">CV1</span> <span class="op">&lt;-</span> <span class="va">CV1_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">LT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">CV1</span><span class="op">$</span><span class="va">Tr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#The optimal number of the eigenfunction and its classwise decomposition</span></span>
+<span><span class="va">jjj</span><span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">MC</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">j0</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">jjj</span><span class="op">[</span><span class="va">MxAccu</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">MxAccu</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">MxAccu</span><span class="op">[</span><span class="va">j0</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 0.7816667</span></span>
+<span><span class="va">nn0</span><span class="op">=</span><span class="va">MxAccuArg</span><span class="op">[</span>,<span class="va">j0</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">nn0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 80</span></span>
+<span></span>
+<span><span class="co"># # obtaining classwise trajectories</span></span>
+<span><span class="co"># ClassTraj=matrix(0,nrow=K,ncol=LT)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># for(k in 1:K){</span></span>
+<span><span class="co">#   DiscrData=cbind(ArgH,CrossValid[[k]])</span></span>
+<span><span class="co">#   for(i in 1:LT){</span></span>
+<span><span class="co">#     AB=Classify(DiscrData,Mean,Eg,CV1$Tr[[i]],SplData[[k]])</span></span>
+<span><span class="co">#     ClassTraj[k,i]=mean(AB$clss==k)</span></span>
+<span><span class="co">#   }</span></span>
+<span><span class="co"># }</span></span>
+<span></span>
+<span><span class="co"># save(ClassTraj,file='ClassTraj.RData')</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">'ClassTraj.RData'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">xxx</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">CV1</span><span class="op">$</span><span class="va">Tr</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">CV1</span><span class="op">$</span><span class="va">Tr</span><span class="op">[[</span><span class="va">LT</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="co">#the trajectory range by the total number of eigenfunctions</span></span>
+<span><span class="co">#######</span></span>
+<span></span>
+<span><span class="co"># the objective function against classwise accuracy</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">xxx</span>,<span class="va">aaa</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,type<span class="op">=</span><span class="st">'l'</span>,axes<span class="op">=</span><span class="st">'False'</span>,lwd<span class="op">=</span><span class="fl">3</span>, col<span class="op">=</span><span class="st">'red'</span>,ylab<span class="op">=</span><span class="st">'Accuracy'</span>,xlab<span class="op">=</span><span class="st">'The total number of eigenfunctions'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">K</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">xxx</span>,<span class="va">ClassTraj</span><span class="op">[</span><span class="va">k</span>,<span class="op">]</span>,type<span class="op">=</span><span class="st">'l'</span>,col<span class="op">=</span><span class="va">k</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="ImageClassification_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># lines(xxx,aaa,lwd=3, col='red')</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="testing-the-classification-procedure">Testing the Classification Procedure<a class="anchor" aria-label="anchor" href="#testing-the-classification-procedure"></a>
@@ -616,7 +716,7 @@ set by projecting it onto the ten functional spaces and utilizing the
 classification rule. The results are then compared with the actual class
 memberships and summarized in the confusion matrix to assess the
 method’s efficiency.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#############################################</span></span>
 <span></span>
 <span></span>
@@ -633,7 +733,7 @@ method’s efficiency.</p>
 <div class="section level3">
 <h3 id="classification-of-the-testing-data">Classification of the testing data<a class="anchor" aria-label="anchor" href="#classification-of-the-testing-data"></a>
 </h3>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Running the test of the classification procedure on testing data, takes some time.</span></span>
 <span><span class="co"># TesT=list()</span></span>
 <span><span class="co"># for(k in 1:K){</span></span>
@@ -671,7 +771,7 @@ method’s efficiency.</p>
 depends on the goal of the analysis. It involves analyzing the
 classification results, examining misclassified data points, and
 identifying potential areas for improvement.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#############################################</span></span>
 <span></span>
 <span><span class="co">#Creating values to the confusion matrix</span></span>
@@ -682,7 +782,20 @@ identifying potential areas for improvement.</p>
 <span>  <span class="kw">for</span><span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">K</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">Confusion</span><span class="op">[</span><span class="va">l</span>,<span class="va">k</span><span class="op">]</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">TesT</span><span class="op">[[</span><span class="va">k</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">clss</span><span class="op">==</span><span class="va">l</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">Confusion</span></span>
+<span><span class="co">#&gt;        [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10]</span></span>
+<span><span class="co">#&gt;  [1,] 0.721 0.008 0.038 0.055 0.005 0.000 0.236 0.000 0.027 0.000</span></span>
+<span><span class="co">#&gt;  [2,] 0.006 0.948 0.002 0.052 0.001 0.000 0.004 0.000 0.002 0.000</span></span>
+<span><span class="co">#&gt;  [3,] 0.014 0.004 0.602 0.020 0.144 0.000 0.102 0.000 0.016 0.001</span></span>
+<span><span class="co">#&gt;  [4,] 0.101 0.029 0.017 0.817 0.079 0.000 0.083 0.000 0.011 0.000</span></span>
+<span><span class="co">#&gt;  [5,] 0.002 0.008 0.196 0.031 0.655 0.000 0.171 0.000 0.004 0.000</span></span>
+<span><span class="co">#&gt;  [6,] 0.007 0.000 0.003 0.002 0.000 0.864 0.000 0.054 0.013 0.036</span></span>
+<span><span class="co">#&gt;  [7,] 0.100 0.001 0.120 0.017 0.106 0.000 0.355 0.000 0.002 0.000</span></span>
+<span><span class="co">#&gt;  [8,] 0.002 0.000 0.000 0.000 0.001 0.114 0.000 0.910 0.013 0.052</span></span>
+<span><span class="co">#&gt;  [9,] 0.047 0.002 0.021 0.005 0.009 0.001 0.049 0.000 0.911 0.000</span></span>
+<span><span class="co">#&gt; [10,] 0.000 0.000 0.001 0.001 0.000 0.021 0.000 0.036 0.001 0.911</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

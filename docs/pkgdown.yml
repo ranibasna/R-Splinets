@@ -6,7 +6,7 @@ articles:
   ImageClassification: ImageClassification.html
   IntroductiontoSplinets: IntroductiontoSplinets.html
   MassSpectrometry: MassSpectrometry.html
-last_built: 2024-09-28T10:27Z
+last_built: 2024-10-04T08:11Z
 urls:
   reference: list(text = "GitHub", href = "https://ranibasna.github.io/R-Splinets/",
     icon = "fab fa-github")/reference

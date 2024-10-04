@@ -2,7 +2,7 @@
 title: "Functional Principal Value Decomposition with the Wine data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Functional Principal Value Decomposition}
+  %\VignetteIndexEntry{Functional Principal Value Decomposition with the Wine data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

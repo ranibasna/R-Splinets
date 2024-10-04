@@ -21,7 +21,10 @@ library(Splinets)
 
 # Data Preprocessing
 
-This step involves transforming the two-dimensional images into a one-dimensional format for analysis. The example in the source uses the Hilbert curve transformation, which preserves local correlations between image pixels better than simply stacking the image's columns or rows
+This step involves transforming the two-dimensional images into a one-dimensional format for analysis. The example in the source uses the Hilbert curve transformation, which preserves local correlations between image pixels better than simply stacking the image's columns or rows. 
+
+if the fashion_mnist.RData is not available, the data can be uploaded using the following code
+OneD=data_prep(dname='fashion_mnist', dwnld=TRUE,pathfile)
 
 ```{r DataPreprocessing}
 #####################################
@@ -44,10 +47,9 @@ source("WorkFlowAuxFunction.R") #This source all important R-functions helping i
                                                                #in 'WorkFlowAuxFunction.R' if the data
                                                                #are not previously uploaded. 
 
-# load(file = "../data/fashion_mnist.RData")
+
 load(file = "fashion_mnist.RData")
-# if the fashion_mnist.RData is not available, the data can be uploaded using the following code
-# OneD=data_prep(dname='fashion_mnist', dwnld=FALSE,pathfile)
+# OneD=data_prep(dname='fashion_mnist', dwnld=TRUE,pathfile)
 # save(OneD,file="OneD.RData")
 load(file = "OneD.RData")
 ```
@@ -482,7 +484,7 @@ for(k in 1:K){
 ```
 
 
-<!-- # Visualization of the optimization algorithm for the number of eigenfunctions -->
+# Visualization of the optimization algorithm for the number of eigenfunctions
 
 <!-- ```{r} -->
 <!-- #################### -->
@@ -502,10 +504,11 @@ for(k in 1:K){
 
 <!-- LT=length(CV1$Tr) -->
 <!-- aaa=vector('numeric',LT) -->
+<!-- bbb=aaa -->
 <!-- for(i in 1:LT)aaa[i]=CV1$Lss[[i]] -->
-<!-- # for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
+<!-- for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
 
-<!-- # plot(bbb,aaa,type='l',xlab='The number of eigenfunctions',ylab='Accuracy',col='red',lwd=2,ylim=c(0.65,0.8)) -->
+<!-- plot(bbb,aaa,type='l',xlab='The number of eigenfunctions',ylab='Accuracy',col='red',lwd=2,ylim=c(0.65,0.8)) -->
 <!-- ``` -->
 
 
@@ -518,25 +521,24 @@ for(k in 1:K){
 <!-- MxAccu[1]=CV1$Lss[[nn0]] -->
 <!-- MxAccuArg[,1]=CV1$Tr[[nn0]] -->
 
-<!-- # set.seed(1) -->
-<!-- # for(j in 1:MC){ -->
-<!-- #   newn=nn -->
-<!-- #   for(k in 1:K){ -->
-<!-- #     newn[k]=ceiling(runif(1)*MxAccuArg[k,j]) -->
-<!-- #   } -->
-<!-- #   CV1=Cross(nn=newn,NumbFail = 40) -->
-<!-- #   LT=length(CV1$Tr) -->
-<!-- #   aaa=vector('numeric',LT) -->
-<!-- #   bbb=aaa -->
-<!-- #   for(i in 1:LT)aaa[i]=CV1$Lss[[i]] -->
-<!-- #   for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
-<!-- #   plot(bbb,aaa,type='l',xlab='The number of eigenfunctions',ylab='Accuracy',col='red',lwd=2,ylim=c(0.65,0.8)) -->
-<!-- #   lines(bbb,aaa,type='l',col=j) -->
-<!-- #   ind=1:LT -->
-<!-- #   nn0=min(ind[max(aaa)==aaa]) -->
-<!-- #   MxAccu[j+1]=CV1$Lss[[nn0]] -->
-<!-- #   MxAccuArg[,j+1]=CV1$Tr[[nn0]] -->
-<!-- # } -->
+<!-- set.seed(1) -->
+<!-- for(j in 1:MC){ -->
+<!--   newn=nn -->
+<!--   for(k in 1:K){ -->
+<!--     newn[k]=ceiling(runif(1)*MxAccuArg[k,j]) -->
+<!--   } -->
+<!--   CV1=Cross(nn=newn,NumbFail = 40) -->
+<!--   LT=length(CV1$Tr) -->
+<!--   aaa=vector('numeric',LT) -->
+<!--   bbb=aaa -->
+<!--   for(i in 1:LT)aaa[i]=CV1$Lss[[i]] -->
+<!--   for(i in 1:LT)bbb[i]=sum(CV1$Tr[[i]]) -->
+<!--   lines(bbb,aaa,type='l',col=j) -->
+<!--   ind=1:LT -->
+<!--   nn0=min(ind[max(aaa)==aaa]) -->
+<!--   MxAccu[j+1]=CV1$Lss[[nn0]] -->
+<!--   MxAccuArg[,j+1]=CV1$Tr[[nn0]] -->
+<!-- } -->
 
 <!-- # save(CV1,MxAccu,MxAccuArg,file='MxAccu.RData') -->
 <!-- # rm(CV1) -->
@@ -546,42 +548,140 @@ for(k in 1:K){
 
 
 <!-- ```{r} -->
-<!-- #The optimal number of the eigenfunction and its classwise decomposition -->
-<!-- jjj=1:(MC+1) -->
-<!-- j0=min(jjj[MxAccu==max(MxAccu)]) -->
-<!-- MxAccu[j0] -->
-<!-- nn0=MxAccuArg[,j0] -->
-<!-- sum(nn0) -->
+<!-- xval=ArgH #used due to the name of the default in 'Cross()' -->
+<!-- # Load the initial data (first curve) -->
+<!-- load('CV1.RData') -->
+<!-- LT <- length(CV1$Tr) -->
+<!-- aaa <- vector('numeric', LT) -->
+<!-- bbb <- aaa -->
+<!-- for(i in 1:LT) aaa[i] = CV1$Lss[[i]] -->
+<!-- for(i in 1:LT) bbb[i] = sum(CV1$Tr[[i]]) -->
 
-<!-- #obtaining classwise trajectories -->
-<!-- # ClassTraj=matrix(0,nrow=K,ncol=LT) -->
-<!-- #  -->
-<!-- # for(k in 1:K){ -->
-<!-- #   DiscrData=cbind(ArgH,CrossValid[[k]]) -->
-<!-- #   for(i in 1:LT){ -->
-<!-- #     AB=Classify(DiscrData,Mean,Eg,CV1$Tr[[i]],SplData[[k]]) -->
-<!-- #     ClassTraj[k,i]=mean(AB$clss==k) -->
-<!-- #   } -->
-<!-- # } -->
+<!-- MC=10 #Monte Carlo sample for the ini -->
+<!-- MxAccu=vector('numeric',MC+1) -->
+<!-- MxAccuArg=matrix(0,ncol=MC+1,nrow=K) -->
+<!-- ind=1:LT -->
+<!-- nn0=min(ind[max(aaa)==aaa]) -->
+<!-- MxAccu[1]=CV1$Lss[[nn0]] -->
+<!-- MxAccuArg[,1]=CV1$Tr[[nn0]] -->
+<!-- # Number of Monte Carlo simulations -->
+<!-- # MC <- 10  -->
 
-<!-- # save(ClassTraj,file='ClassTraj.RData') -->
-<!-- load('ClassTraj.RData') -->
+<!-- # Create lists to store the results of Cross() for each MC iteration -->
+<!-- CV1_list <- vector("list", MC + 1)  # +1 for the initial plot outside the loop -->
+<!-- aaa_list <- vector("list", MC + 1)  # To store accuracies -->
+<!-- bbb_list <- vector("list", MC + 1)  # To store eigenfunction sums -->
 
-<!-- xxx=sum(CV1$Tr[[1]]):sum(CV1$Tr[[LT]]) #the trajectory range by the total number of eigenfunctions -->
-<!-- ####### -->
+<!-- # Store the initial curve data -->
+<!-- CV1_list[[1]] <- CV1 -->
+<!-- aaa_list[[1]] <- aaa -->
+<!-- bbb_list[[1]] <- bbb -->
 
-<!-- # the objective function against classwise accuracy -->
+<!-- # Plot the first curve -->
+<!-- plot(bbb, aaa, type = 'l', xlab = 'The number of eigenfunctions',  -->
+<!--      ylab = 'Accuracy', col = 'red', lwd = 2, ylim = c(0.65, 0.8)) -->
 
+<!-- # Monte Carlo loop -->
+<!-- set.seed(1) -->
+<!-- for (j in 1:MC) { -->
+<!--   newn <- nn -->
 
-<!-- plot(xxx,aaa,ylim=c(0,1),type='l',axes='False',lwd=3, col='red',ylab='Accuracy',xlab='The total number of eigenfunctions') -->
-<!-- axis(1) -->
-<!-- axis(2) -->
-<!-- for(k in 1:K){ -->
-<!--   lines(xxx,ClassTraj[k,],type='l',col=k) -->
+<!--   # Update newn and run Cross() for each k -->
+<!--   for (k in 1:K) { -->
+<!--     newn[k] <- ceiling(runif(1) * MxAccuArg[k, j]) -->
+<!--   } -->
+
+<!--   # Store the Cross() results for each iteration in the list -->
+<!--   CV1 <- Cross(nn=newn, NumbFail=40) -->
+<!--   CV1_list[[j+1]] <- CV1  # Save result in the list -->
+
+<!--   # Extract the accuracy and eigenfunction sums -->
+<!--   LT <- length(CV1$Tr) -->
+<!--   aaa <- vector('numeric', LT) -->
+<!--   bbb <- aaa -->
+<!--   for (i in 1:LT) aaa[i] = CV1$Lss[[i]] -->
+<!--   for (i in 1:LT) bbb[i] = sum(CV1$Tr[[i]]) -->
+
+<!--   # Store the computed results for each iteration -->
+<!--   aaa_list[[j+1]] <- aaa -->
+<!--   bbb_list[[j+1]] <- bbb -->
+
+<!--   # Plot each curve in the loop -->
+<!--   lines(bbb, aaa, type = 'l', col = j + 1) -->
+<!--   ind = 1:LT -->
+<!--   nn0 = min(ind[max(aaa) == aaa]) -->
+<!--   MxAccu[j+1] = CV1$Lss[[nn0]] -->
+<!--   MxAccuArg[,j+1] = CV1$Tr[[nn0]] -->
 <!-- } -->
-<!-- lines(xxx,aaa,lwd=3, col='red') -->
+
+<!-- # Save all objects after the loop -->
+<!-- save(CV1_list, aaa_list, bbb_list, MxAccu, MxAccuArg, file='MxAccu_all.RData') -->
+
+<!-- # Load data when needed -->
+<!-- # load('MxAccu_all.RData') -->
 <!-- ``` -->
 
+```{r}
+# Load the saved data
+load('MxAccu_all.RData')
+
+# Recreate the initial plot
+bbb <- bbb_list[[1]]
+aaa <- aaa_list[[1]]
+plot(bbb, aaa, type = 'l', xlab = 'The number of eigenfunctions', 
+     ylab = 'Accuracy', col = 'red', lwd = 2, ylim = c(0.65, 0.8))
+
+# The number of Monte Carlo iterations
+MC <- length(CV1_list) - 1
+# Add the remaining curves (from Monte Carlo iterations)
+for (j in 1:MC) {
+  bbb <- bbb_list[[j+1]]
+  aaa <- aaa_list[[j+1]]
+  
+  # Plot each saved curve
+  lines(bbb, aaa, type = 'l', col = j + 1)
+}
+```
+
+
+```{r}
+aaa <- aaa_list[[1]]
+CV1 <- CV1_list[[1]]
+LT <- length(CV1$Tr)
+
+#The optimal number of the eigenfunction and its classwise decomposition
+jjj=1:(MC+1)
+j0=min(jjj[MxAccu==max(MxAccu)])
+MxAccu[j0]
+nn0=MxAccuArg[,j0]
+sum(nn0)
+
+# # obtaining classwise trajectories
+# ClassTraj=matrix(0,nrow=K,ncol=LT)
+# 
+# for(k in 1:K){
+#   DiscrData=cbind(ArgH,CrossValid[[k]])
+#   for(i in 1:LT){
+#     AB=Classify(DiscrData,Mean,Eg,CV1$Tr[[i]],SplData[[k]])
+#     ClassTraj[k,i]=mean(AB$clss==k)
+#   }
+# }
+
+# save(ClassTraj,file='ClassTraj.RData')
+load('ClassTraj.RData')
+
+xxx=sum(CV1$Tr[[1]]):sum(CV1$Tr[[LT]]) #the trajectory range by the total number of eigenfunctions
+#######
+
+# the objective function against classwise accuracy
+plot(xxx,aaa,ylim=c(0,1),type='l',axes='False',lwd=3, col='red',ylab='Accuracy',xlab='The total number of eigenfunctions')
+axis(1)
+axis(2)
+for(k in 1:K){
+  lines(xxx,ClassTraj[k,],type='l',col=k)
+}
+# lines(xxx,aaa,lwd=3, col='red')
+```
 
 
 # Testing the Classification Procedure
@@ -651,6 +751,8 @@ for(l in 1:K){
     Confusion[l,k]=mean(TesT[[k]]$clss==l)
   }
 }
+
+Confusion
 ```
 
 

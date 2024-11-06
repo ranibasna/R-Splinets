@@ -8,8 +8,8 @@ inst/doc
 # vignettes/ClValue.RData
 # vignettes/OneD.RData
 # vignettes/TesT.RData
-# vignettes/Projections.rda
-# vignettes/CDKnts.rda
+vignettes/Projections.rda
+vignettes/CDKnts.rda
 # vignettes/ClassTraj.RData
 # vignettes/CrossValid.RData
 # vignettes/CV1.RData

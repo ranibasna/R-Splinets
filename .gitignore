@@ -5,14 +5,14 @@ inst/doc
 .RData
 .Ruserdata
 inst/doc
-# vignettes/ClValue.RData
-# vignettes/OneD.RData
-# vignettes/TesT.RData
+vignettes/ClValue.RData
+vignettes/OneD.RData
+vignettes/TesT.RData
 vignettes/Projections.rda
 vignettes/CDKnts.rda
-# vignettes/ClassTraj.RData
-# vignettes/CrossValid.RData
-# vignettes/CV1.RData
+vignettes/ClassTraj.RData
+vignettes/CrossValid.RData
+vignettes/CV1.RData
 vignettes/MnKnts.rda
 vignettes/MxAccu.RData
 vignettes/Mean.RData

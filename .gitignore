@@ -5,9 +5,9 @@ inst/doc
 .RData
 .Ruserdata
 inst/doc
-vignettes/ClValue.RData
-vignettes/OneD.RData
-vignettes/TesT.RData
+# vignettes/ClValue.RData
+# vignettes/OneD.RData
+# vignettes/TesT.RData
 vignettes/Projections.rda
 vignettes/CDKnts.rda
 vignettes/ClassTraj.RData
